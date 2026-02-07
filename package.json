@@ -1,6 +1,6 @@
 {
   "name": "claude-agent-app",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Claude Code Agent 可视化客户端 - 桌面 + 移动端",
   "main": "main.js",
   "scripts": {

@@ -1011,6 +1011,60 @@ window.addPresetProvider = function(preset) {
   render();
 };
 
+// ==================== Skills ====================
+
+window.importSkill = async function() {
+  // 在 Electron 中使用文件选择对话框
+  try {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.webkitdirectory = true;
+    input.addEventListener('change', async (e) => {
+      const files = Array.from(e.target.files);
+      const skillMd = files.find(f => f.name === 'SKILL.md');
+      if (!skillMd) {
+        showToast('未找到 SKILL.md 文件', 'error');
+        return;
+      }
+      // 获取目录路径
+      const dirPath = skillMd.webkitRelativePath.split('/')[0];
+      const reader = new FileReader();
+      reader.onload = async () => {
+        const content = reader.result;
+        // 创建 skill 对象
+        const skill = {
+          id: generateId(),
+          name: dirPath,
+          content: content,
+          importedAt: new Date().toISOString()
+        };
+        if (!state.skills) state.skills = [];
+        state.skills.push(skill);
+        render();
+        showToast('Skill 已导入: ' + dirPath, 'success');
+      };
+      reader.readAsText(skillMd);
+    });
+    input.click();
+  } catch (e) {
+    showToast('导入失败: ' + e.message, 'error');
+  }
+};
+
+window.deleteSkill = function(index) {
+  if (confirm('确定删除这个 Skill？')) {
+    state.skills.splice(index, 1);
+    render();
+    showToast('Skill 已删除', 'success');
+  }
+};
+
+window.viewSkill = function(index) {
+  const skill = state.skills?.[index];
+  if (!skill) return;
+  alert(skill.content || '无内容');
+};
+
 window.addMCPServer = function() {
   const name = prompt('服务器名称：');
   if (!name) return;
