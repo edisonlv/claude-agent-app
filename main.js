@@ -204,8 +204,6 @@ app.on('before-quit', () => {
   unregisterShortcuts();
   logger.info('应用即将退出');
 });
-  logger.info('应用即将退出');
-});
 
 // ==================== 工具函数 ====================
 
