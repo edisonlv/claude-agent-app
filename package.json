@@ -1,0 +1,55 @@
+{
+  "name": "claude-agent-app",
+  "version": "2.0.0",
+  "description": "Claude Code Agent 可视化客户端 - 桌面 + 移动端",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dev": "concurrently \"npm run watch\" \"electron .\"",
+    "watch": "webpack --watch --mode development",
+    "build": "webpack --mode production",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder",
+    "server": "node server/index.js",
+    "server:dev": "NODE_ENV=development node server/index.js"
+  },
+  "build": {
+    "appId": "com.claude.agent",
+    "productName": "Claude Agent",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "main.js",
+      "preload.js",
+      "logger.js",
+      "crypto.js",
+      "sync-client.js"
+    ],
+    "mac": {
+      "target": "dmg"
+    },
+    "win": {
+      "target": "nsis"
+    }
+  },
+  "dependencies": {
+    "express": "^4.18.0",
+    "cors": "^2.8.5",
+    "marked": "^12.0.0",
+    "highlight.js": "^11.9.0",
+    "mermaid": "^10.9.0",
+    "dompurify": "^3.0.0"
+  },
+  "devDependencies": {
+    "electron": "^28.0.0",
+    "electron-builder": "^24.9.0",
+    "concurrently": "^8.2.0",
+    "webpack": "^5.89.0",
+    "webpack-cli": "^5.1.4",
+    "html-webpack-plugin": "^5.6.0",
+    "css-loader": "^6.8.0",
+    "style-loader": "^3.3.0"
+  }
+}
