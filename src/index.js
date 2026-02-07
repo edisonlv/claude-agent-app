@@ -865,9 +865,6 @@ window.sendMessage = async function() {
     state.isSending = false;
     render();
   }
-    lastMsg.loading = false;
-    render();
-  }
   
   setTimeout(() => {
     const messagesDiv = document.getElementById('messages');
